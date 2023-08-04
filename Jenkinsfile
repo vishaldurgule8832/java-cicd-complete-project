@@ -4,13 +4,13 @@ pipeline{
     agent any
 
     parameters{
-        choice(name: 'action', choices:'create/ndelete', description: 'choose what do you want')
+        choice(name: 'action', choices:'create\ndelete', description: 'choose what do you want')
     }
 
     stages{
 
-        stage("Git checkout"){
-            when { expression { params.action==create } }
+        stage('Git checkout'){
+            when { expression { params.action=='create' } }
             steps{
                 script{
                     gitCheckout(
@@ -21,8 +21,8 @@ pipeline{
             }
         }
 
-        stage("Unit Testing"){
-            when { expression { params.action==create } }
+        stage('Unit Testing'){
+            when { expression { params.action=='create' } }
             steps{
                 script{
                     
@@ -31,12 +31,22 @@ pipeline{
             }
         }
 
-        stage("Integration test"){
-            when { expression { params.action==create } }
+        stage('Integration test'){
+            when { expression { params.action=='create' } }
             steps{
                 script{
                     
                     mvnIntegrationTest()
+                }
+            }
+        }
+        stage('StaticCode'){
+            when { expression { params.action=='create' } }
+            steps{
+                script{
+                    
+                    def credentialsId= 'sonarqube-api'
+                    staticCodeAnalysis(credentialsId)
                 }
             }
         }
