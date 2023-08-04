@@ -4,13 +4,13 @@ pipeline{
     agent any
 
     parameters{
-        choice(name:'action',choices:'create/destroy',description:'choose what do you want')
+        choice(name: 'action', choices:'create/ndelete', description: 'choose what do you want')
     }
 
     stages{
 
         stage("Git checkout"){
-            when{expression{parameters.action==create}}
+            when { expression { params.action==create } }
             steps{
                 script{
                     gitCheckout(
@@ -22,7 +22,7 @@ pipeline{
         }
 
         stage("Unit Testing"){
-            when{expression{parameters.action==create}}
+            when { expression { params.action==create } }
             steps{
                 script{
                     
@@ -32,7 +32,7 @@ pipeline{
         }
 
         stage("Integration test"){
-            when{expression{parameters.action==create}}
+            when { expression { params.action==create } }
             steps{
                 script{
                     
