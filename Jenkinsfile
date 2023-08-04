@@ -10,8 +10,8 @@ pipeline{
             steps{
                 script{
                     gitCheckout(
+                        branch: "master",
                         url:"https://github.com/vishaldurgule8832/java-cicd-complete-project.git"
-                        branch: "master"
                     )
                 }
             }
