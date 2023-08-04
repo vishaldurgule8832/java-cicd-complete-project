@@ -1,7 +1,5 @@
-
+@library('shared_lib')
 pipeline{
-
-
     agent any
 
     stages{
@@ -9,7 +7,12 @@ pipeline{
         stage("Git checkout"){
 
             steps{
-                sh 'git clone https://github.com/vishaldurgule8832/java-cicd-complete-project.git'
+                script{
+                    gitCheckout(
+                        url:"https://github.com/vishaldurgule8832/java-cicd-complete-project.git"
+                        branch: "master"
+                    )
+                }
             }
         }
     }
