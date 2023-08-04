@@ -46,7 +46,7 @@ pipeline{
                 script{
                     
                     def credentialsId= 'sonarqube-api'
-                    statiCodeAnalysis(credentialsId)
+                    staticCodeAnalysis(credentialsId)
                 }
             }
         }
